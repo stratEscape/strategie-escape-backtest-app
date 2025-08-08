@@ -76,7 +76,16 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
     balance = to_float(balance_col) if balance_col else None
     equity = to_float(equity_col) if equity_col else None
 
-    out = pd.DataFrame({"Datetime": df2["Datetime"], "Balance": balance, "Equity": equity}) \            .dropna(subset=["Datetime","Equity"]) \            .sort_values("Datetime").reset_index(drop=True)
+    out = (
+    pd.DataFrame({
+        "Datetime": df2["Datetime"],
+        "Balance": balance,
+        "Equity": equity
+    })
+    .dropna(subset=["Datetime", "Equity"])
+    .sort_values("Datetime")
+    .reset_index(drop=True)
+)
     return out
 
 def compute_metrics(df: pd.DataFrame) -> dict:
